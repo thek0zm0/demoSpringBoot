@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +29,10 @@ public class User implements Serializable
     // Configurar chaves estrangeiras JPA
     // 1 user pode ter n orders
     // Esse oneToMany esta mapeado por client
+    // Necessário JsonIgnore para resolver problema de Loop
+
     @OneToMany(mappedBy = "client")
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 
     public User(){}
