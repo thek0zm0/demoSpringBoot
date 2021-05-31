@@ -1,16 +1,16 @@
 package com.example.demo.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 // Serializable, pois quero que este objeto seja transformado em uma cadeia de bytes.
 // Anotações JPA (Entity)
 // Sempre damos preferência para especificação, e não implementação.
 @Entity
+@Table(name = "tb_user")
 public class User implements Serializable
 {
     private static final long serialVersionUID = 8256151461796770037L;
@@ -22,6 +22,13 @@ public class User implements Serializable
     private String email;
     private String phone;
     private String password;
+
+    // Associações
+    // Configurar chaves estrangeiras JPA
+    // 1 user pode ter n orders
+    // Esse oneToMany esta mapeado por client
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
 
     public User(){}
 
@@ -82,6 +89,11 @@ public class User implements Serializable
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public List<Order> getOrders()
+    {
+        return orders;
     }
 
     @Override
