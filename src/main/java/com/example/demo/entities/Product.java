@@ -23,6 +23,7 @@ public class Product implements Serializable
     // Set para garantir que o mesmo produto não tenha mais de 1 da mesma categoria.
     // Instanciamos para garantir que a coleção não comece nula e sim vazia.
     // Set é uma interface.
+    // Crie um tabela com proudct e category, usando product id e category id
     @ManyToMany
     @JoinTable(name = "Tb_product_category",
                joinColumns = @JoinColumn(name = "product_id"),

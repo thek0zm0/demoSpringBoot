@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 // Order é uma palavra reservado do SQL, e por isto, isso pode entrar em conflito.
 // Devido a isto iremos utilizar a anotação @Table
@@ -28,6 +30,9 @@ public class Order implements Serializable
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     private Integer orderStatus;
 
@@ -82,6 +87,11 @@ public class Order implements Serializable
     public void setClient(User client)
     {
         this.client = client;
+    }
+
+    public Set<OrderItem> getItems()
+    {
+        return items;
     }
 
     @Override
