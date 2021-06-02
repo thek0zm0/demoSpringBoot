@@ -71,6 +71,13 @@ public class OrderItem implements Serializable
         this.price = price;
     }
 
+    // O que vale na plataforma javaEnterpise é o get
+    public Double getSubTotal()
+    {
+        return price*quantity;
+    }
+
+
     @Override
     public boolean equals(Object o)
     {
