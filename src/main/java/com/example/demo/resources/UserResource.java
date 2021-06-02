@@ -3,11 +3,10 @@ import com.example.demo.entities.User;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 // Para falarmos que esta classe é um recurso WEB, que é implementador por um controlador REST
@@ -32,5 +31,14 @@ public class UserResource
     {
         User obj = userService.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    // Inserção
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User obj)
+    {
+        obj = userService.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);
     }
 }
